@@ -1,8 +1,8 @@
 # CryptoApp
 
-Reference
+**Reference**
 
-**Select Python Enviroment
+Select Python Enviroment
 
 > set FLASK_APP=CryptoApp
 

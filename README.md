@@ -1,10 +1,4 @@
-# CryptoApp
+A Web Application to display Crypto data.
 
-**Reference**
-
-Select Python Enviroment
-
-> set FLASK_APP=CryptoApp
-
-> python -m flask run
+Built on the Python Flask web-framework. 
 

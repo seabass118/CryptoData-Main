@@ -1,0 +1,279 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Crypto Site</title>
+    <meta name="description" content="Crypto Site">
+    <meta name="author" content="Seb Blackley">
+    <link rel="stylesheet" href="/static/_css/index.css?v=1.1">
+    <link rel="stylesheet" href="/static/_css/global.css?v=1.5">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Questrial&display=swap" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <div id="random_div"></div>
+        <div id="index_inner" class="inner">
+            <div id="header">
+                <a class="logo" href="/">Logo</a>
+                <ul class="header_menu">
+                    <li><a href="/prices">PRICES</a></li>
+                    <li><a href="/exchanges">EXCHANGES</a></li>
+                    <li><a href="/about">ABOUT</a></li>
+                    <li><a href="/contact">CONTACT</a></li>
+                </ul>
+            </div>
+            <div id="wrapper_1" class="wrapper">
+                <div id="index_bubble_container">
+                    <div id="btc_container" class="price_container">
+                        <div id="btc_icon_container" class="icon_container">
+                            <img id="btc_icon" class="coin_icon" src="{{ url_for('static', filename='_images/btc-icon.png') }}"></img> 
+                        </div>
+                        <div id="btc_price" class="main_price">
+                            <div class="price_text">
+                                <span class="btc_price"></span>
+                            </div>
+                        </div>
+                        <div id="btc_right" class="price_container_right">
+                            <div class="percentage_container">
+                                <div id="btc_percentage" class="main_percentage"></div>
+                            </div>
+                            <div class="foreign_price_container">
+                                <div id="btc_gbp_home" class="btc_gbp">GBP: </div>
+                                <div id="btc_eur_home" class="btc_eur">EUR: </div>
+                            </div>
+                            <div id="btc_code" class="price_code">BTC</div>
+                            <div id="btc_name" class="main_name">Bitcoin</div>
+                        </div>
+                    </div>
+                    <div id="eth_container" class="price_container">
+                        <div id="eth_icon_container" class="icon_container">
+                            <img id="eth_icon" class="coin_icon" src="{{ url_for('static', filename='_images/eth-icon.png') }}"></img>
+                        </div>
+                        <div id="eth_price" class="main_price">
+                            <div class="price_text">
+                                <span class="eth_price"></span>
+                            </div>
+                        </div>
+                        <div id="eth_right" class="price_container_right">
+                            <div class="percentage_container">
+                                <div id="eth_percentage" class="main_percentage"></div>
+                            </div>
+                            <div class="foreign_price_container">
+                                <div id="eth_gbp_home" class="eth_gbp">GBP: </div>
+                                <div id="eth_eur_home" class="eth_eur">EUR: </div>
+                            </div>
+                            <div id="eth_code" class="price_code">ETH</div>
+                            <div id="eth_name" class="main_name">Etherium</div>
+                        </div>
+                    </div>
+                    <div id="ltc_container" class="price_container">
+                        <div id="ltc_icon_container" class="icon_container">
+                            <img id="ltc_icon" class="coin_icon" src="{{ url_for('static', filename='_images/ltc-icon.png') }}"></img>
+                        </div>
+                        <div id="ltc_price" class="main_price">
+                            <div class="price_text">
+                                <span class="ltc_price"></span>
+                            </div>
+                        </div>
+                        <div id="ltc_right" class="price_container_right">
+                            <div class="percentage_container">
+                                <div id="ltc_percentage" class="main_percentage"></div>
+                            </div>
+                            <div class="foreign_price_container">
+                                <div id="ltc_gbp_home" class="ltc_gbp">GBP: </div>
+                                <div id="ltc_eur_home" class="ltc_eur">EUR: </div>
+                            </div>
+                            <div id="ltc_code" class="price_code">LTC</div>
+                            <div id="ltc_name" class="main_name">Litecoin</div>
+                        </div>
+                    </div>
+                </div>
+                <div id="index_contentarea1" class="content_area">
+
+                </div>
+                <div id="index_contentarea2" class="content_area">
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+
+        const price_btc = document.querySelector('.btc_price');
+        const price_eth = document.querySelector('.eth_price');
+        const price_ltc = document.querySelector('.ltc_price');
+
+        function cryptoPrice(){
+
+            var currentPrice_BTC_USD = new XMLHttpRequest();
+            var currentPrice_ETH_USD = new XMLHttpRequest();
+            var currentPrice_LTC_USD = new XMLHttpRequest();
+
+            currentPrice_BTC_USD.open('GET', 'https://api.pro.coinbase.com/products/BTC-USD/book', true)
+            currentPrice_ETH_USD.open('GET', 'https://api.pro.coinbase.com/products/ETH-USD/book', true)
+            currentPrice_LTC_USD.open('GET', 'https://api.pro.coinbase.com/products/LTC-USD/book', true)
+
+            currentPrice_BTC_USD.onreadystatechange = function(){
+                if(currentPrice_BTC_USD.readyState == 4){
+                    var ticker = JSON.parse(currentPrice_BTC_USD.responseText);
+                    var price = ticker.bids[0][0];
+                    price = toInteger(price);
+                    price_btc.innerHTML = "$ " + numberChange(price);
+                };
+            };
+
+            currentPrice_ETH_USD.onreadystatechange = function(){
+                if(currentPrice_ETH_USD.readyState == 4){
+                    var ticker = JSON.parse(currentPrice_ETH_USD.responseText);
+                    var price = ticker.bids[0][0];
+                    price = toInteger(price);
+                    price_eth.innerHTML = "$ " + numberChange(price);
+                };
+            };
+
+            currentPrice_LTC_USD.onreadystatechange = function(){
+                if(currentPrice_LTC_USD.readyState == 4){
+                    var ticker = JSON.parse(currentPrice_LTC_USD.responseText);
+                    var price = ticker.bids[0][0];
+                    price = toInteger(price);
+                    price_ltc.innerHTML = "$ " + numberChange(price);
+                };
+            };
+
+            currentPrice_BTC_USD.send();
+            currentPrice_ETH_USD.send();
+            currentPrice_LTC_USD.send();
+
+        }
+
+        setInterval(cryptoPrice,1000);
+
+        const numberChange = (x) => {
+            return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        }
+        
+        function toInteger(number){ 
+            return Math.round(Number(number)); 
+        };
+
+        var btcPercent = {
+            "async": true,
+            "crossDomain": true,
+            "url": "https://api.pro.coinbase.com/products/BTC-USD/stats",
+            "method": "GET"
+        }
+
+        var ethPercent = {
+            "async": true,
+            "crossDomain": true,
+            "url": "https://api.pro.coinbase.com/products/ETH-USD/stats",
+            "method": "GET"
+        }
+
+        var ltcPercent = {
+            "async": true,
+            "crossDomain": true,
+            "url": "https://api.pro.coinbase.com/products/LTC-USD/stats",
+            "method": "GET"
+        }
+
+        $.ajax(btcPercent).done(function (response) {
+            var dayStart = response.open;
+            dayStart = toInteger(dayStart);
+            var dayCurrent = response.last;
+            dayCurrent = toInteger(dayCurrent);
+            var PercentageIncrease = dayCurrent - dayStart;
+            var dailyChange = PercentageIncrease / dayStart * 100;
+            var output = dailyChange.toFixed(2);
+            if (output > 0){
+                $("#btc_percentage").append("+" + output + "%");
+                $("#btc_percentage").css("color", "#60dc5e");
+                $("#btc_price").css("box-shadow", "rgb(20 248 38) 37px 0px 27px -26px" )
+            } else {
+                $("#btc_percentage").append(output + "%");
+                $("#btc_price").css("box-shadow", "rgb(248 20 20) 37px 0px 27px -26px" )
+                $("#btc_percentage").css("color", "#e35e5e");
+            }
+            
+        });
+
+        $.ajax(ethPercent).done(function (response) {
+            var dayStart = response.open;
+            dayStart = toInteger(dayStart);
+            var dayCurrent = response.last;
+            dayCurrent = toInteger(dayCurrent);
+            var PercentageIncrease = dayCurrent - dayStart;
+            var dailyChange = PercentageIncrease / dayStart * 100;
+            var output = dailyChange.toFixed(2);
+            if (output > 0){
+                $("#eth_percentage").append("+" + output + "%");
+                $("#eth_percentage").css("color", "#60dc5e");
+                $("#eth_price").css("box-shadow", "rgb(20 248 38) 37px 0px 27px -26px" )
+            } else {
+                $("#eth_percentage").append(output + "%");
+                $("#eth_price").css("box-shadow", "rgb(248 20 20) 37px 0px 27px -26px" )
+                $("#eth_percentage").css("color", "#e35e5e");
+            }
+            
+        });
+
+        $.ajax(ltcPercent).done(function (response) {
+            var dayStart = response.open;
+            dayStart = toInteger(dayStart);
+            var dayCurrent = response.last;
+            dayCurrent = toInteger(dayCurrent);
+            var PercentageIncrease = dayCurrent - dayStart;
+            var dailyChange = PercentageIncrease / dayStart * 100;
+            var output = dailyChange.toFixed(2);
+            if (output > 0){
+                $("#ltc_percentage").append("+" + output + "%");
+                $("#ltc_percentage").css("color", "#60dc5e");
+                $("#ltc_price").css("box-shadow", "rgb(20 248 38) 37px 0px 27px -26px" )
+            } else {
+                $("#ltc_percentage").append(output + "%");
+                $("#ltc_price").css("box-shadow", "rgb(248 20 20) 37px 0px 27px -26px" )
+                $("#ltc_percentage").css("color", "#e35e5e");
+            }
+            
+        });
+
+        $('document').ready(function(){
+
+            var btc_gbp = JSON.parse('{{ btc_gbp_data | tojson | safe}}');
+            price = btc_gbp.last_trade_price;
+            output = numberChange(price);
+            $("#btc_gbp_home").append("£" + output);
+
+            var btc_eur = JSON.parse('{{ btc_eur_data | tojson | safe}}');
+            price = btc_eur.last_trade_price;
+            output = numberChange(price);
+            $("#btc_eur_home").append("€" + output);
+
+            var eth_gbp = JSON.parse('{{ eth_gbp_data | tojson | safe}}');
+            price = eth_gbp.last_trade_price;
+            output = numberChange(price);
+            $("#eth_gbp_home").append("£" + output);
+
+            var eth_eur = JSON.parse('{{ eth_eur_data | tojson | safe}}');
+            price = eth_eur.last_trade_price;
+            output = numberChange(price);
+            $("#eth_eur_home").append("€" + output);
+
+            var ltc_gbp = JSON.parse('{{ ltc_gbp_data | tojson | safe}}');
+            price = ltc_gbp.last;
+            output = numberChange(price);
+            $("#ltc_gbp_home").append("£" + output);
+
+            var ltc_eur = JSON.parse('{{ ltc_eur_data | tojson | safe}}');
+            price = ltc_eur.last;
+            output = numberChange(price);
+            $("#ltc_eur_home").append("€" + output);
+
+        });
+    </script>
+</body>
+</html>

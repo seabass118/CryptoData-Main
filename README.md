@@ -6,7 +6,7 @@ Built on the Python Flask web-framework.
 
 Usage
 
-python -m venv env
+Create a virtual enviroment
 
 python -m pip install flask
 

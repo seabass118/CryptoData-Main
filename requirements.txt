@@ -1,0 +1,9 @@
+Flask==0.12.2
+flask-socketio
+flask-sqlalchemy==2.4.1
+flask-login==0.5.0
+eventlet==0.17.4
+gunicorn==18.0.0
+requests==2.24.0
+wekzeug==1.0.1
+

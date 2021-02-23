@@ -2,8 +2,8 @@ import learnBot
 import shrimpy
 
 
-public_key = '1930af65a9e42525a057c14cd816b0d582df36a3ac4e39c850294666185c5d91'
-secret_key = 'b480b278b729cf73d203a2816fa1765cd26845d106181ba62f897e4547ca7ec5e2f90375a65f2f0596c0434e875ae0f0c02954e1bfde72401ed59e3822af0529'
+public_key = 'THIS IS PUBLIC'
+secret_key = 'THIS IS A SECRET
 client = shrimpy.ShrimpyApiClient(public_key, secret_key)
 
 all_candles = learnBot.get_candles('binance', ['LTC', 'ETH', 'BTC'], 'USDT', api_client=client)

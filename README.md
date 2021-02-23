@@ -1,12 +1,10 @@
 A Web Application to display Crypto data.
 
-Built on the Python Flask web-framework. 
-
-![Screenshot](CryptoApp_screenshot.png)
+![Screenshot](screenshot1.png)
 
 Usage
 
-Create a virtual enviroment
+```>> python -m venv env```
 
 python -m pip install flask
 

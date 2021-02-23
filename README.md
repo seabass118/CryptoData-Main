@@ -6,8 +6,6 @@ Usage
 
 ```>> python -m venv env```
 
-python -m pip install flask
+```python -m pip install -r requirements.txt```
 
-python -m pip install requests
-
-python -m flask run
+```python main.py```

@@ -1,6 +1,6 @@
 A Web Application to display Crypto data.
 
-![Screenshot](screenshot1.png)
+![Screenshot](/screenshots/screenshot1.png)
 
 Usage
 

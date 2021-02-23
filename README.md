@@ -8,6 +8,6 @@ Usage
 
 ```>> python -m venv env```
 
-```python -m pip install -r requirements.txt```
+```>> python -m pip install -r requirements.txt```
 
-```python main.py```
+```>> python main.py```

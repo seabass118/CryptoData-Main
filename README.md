@@ -1,5 +1,5 @@
 # Crypto App
-## A Crypto website made to display live crypto data
+## A Crypto data web-app + Price prediction bot
 ### Using Python/Flask
 
 ![Screenshot](/screenshots/screenshot1.png)

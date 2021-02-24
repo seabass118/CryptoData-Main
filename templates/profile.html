@@ -1,0 +1,4 @@
+<h2>Username: {{ current_user.username }}</h2>
+<P>Date Created: {{ current_user.date_registered }}</P>
+<!-- {{ '{{ current_user.email }}' | gravatar }} -->
+<img src="{{ current_user.avatar(128) }}">

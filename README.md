@@ -4,7 +4,7 @@
 
 ![Screenshot](/screenshots/screenshot1.png)
 
-Usage
+Usage:
 
 ```>> python -m venv env```
 

@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, g, flash, url_for
 from flask_login import login_required, current_user, login_user, logout_user
 from models import UserModel,db,login
 from flask_socketio import SocketIO
@@ -7,7 +7,7 @@ from flask_gravatar import Gravatar
 
 app = Flask(__name__)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test1.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test4.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 app.config['SECRET_KEY'] = 'vnkdjnfjknfl1232#'
@@ -30,6 +30,9 @@ gravatar = Gravatar(app,
 def create_all():
     db.create_all()
 
+@app.before_request
+def before_request():
+    g.user = current_user
 
 @app.route('/', methods=['POST', 'GET'])
 def login():
@@ -77,10 +80,14 @@ def logout():
 def sessions():
     return render_template('session.html')
 
-@app.route('/profile')
+@app.route('/user/<username>')
 @login_required
-def profile():
-    return render_template('profile.html')
+def user(username):
+    user = UserModel.query.filter_by(username=username).first()
+    if user == None:
+        flash('User %s not found.' % username)
+        return redirect(url_for('index'))
+    return render_template('user.html', user=user)
 
 def messageReceived(methods=['GET', 'POST']):
     print('message was received!!!')
@@ -90,6 +97,48 @@ def messageReceived(methods=['GET', 'POST']):
 def handle_my_custom_event(json, methods=['GET', 'POST']):
     print('received my event: ' + str(json))
     socketio.emit('my response', json, callback=messageReceived)
+
+#---
+
+@app.route('/follow/<username>')
+@login_required
+def follow(username):
+    user = UserModel.query.filter_by(username=username).first()
+    if user is None:
+        flash('User %s not found.' % username)
+        return redirect(url_for('index'))
+    if user == g.user:
+        flash('You can\'t follow yourself!')
+        return redirect(url_for('user', username=username))
+    u = g.user.follow(user)
+    if u is None:
+        flash('Cannot follow ' + username + '.')
+        return redirect(url_for('user', username=username))
+    db.session.add(u)
+    db.session.commit()
+    flash('You are now following ' + username + '!')
+    return redirect(url_for('user', username=username))
+
+@app.route('/unfollow/<username>')
+@login_required
+def unfollow(username):
+    user = UserModel.query.filter_by(username=username).first()
+    if user is None:
+        flash('User %s not found.' % username)
+        return redirect(url_for('index'))
+    if user == g.user:
+        flash('You can\'t unfollow yourself!')
+        return redirect(url_for('user', username=username))
+    u = g.user.unfollow(user)
+    if u is None:
+        flash('Cannot unfollow ' + username + '.')
+        return redirect(url_for('user', username=username))
+    db.session.add(u)
+    db.session.commit()
+    flash('You have stopped following ' + username + '.')
+    return redirect(url_for('user', username=username))
+
+#---
 
 
 if __name__ == '__main__':

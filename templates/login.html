@@ -1,8 +1,163 @@
-<form action="" method = "POST">
+<!-- <form action="" method = "POST">
     <p>email <input type = "email" name = "email" /></p>
     <p>password <input type = "password" name = "password" /></p>
     <p> submit <input type = "submit" value = "Submit" /></p>
 </form>
- 
-<h3>Dont Have an account??</h3>
-<h3><a href = "{{url_for('register') }}">Register Here</a></h3>
+  -->
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="/static/_css/login.css">
+    </head>
+<body id="particles-js"></body>
+    <div class="animated bounceInDown">
+    <div class="container">
+        <span class="error animated tada" id="msg"></span>
+        <form name="form1" class="box" action="" method="POST">
+        <h4>Sebs<span>Site</span></h4>
+        <h5>Sign in to your account.</h5>
+            <input type="text" name="email" placeholder="Email" autocomplete="off">
+            <i class="typcn typcn-eye" id="eye"></i>
+            <input type="password" name="password" placeholder="Passsword" id="pwd" autocomplete="off">
+            <label>
+            <input type="checkbox">
+            <span></span>
+            <small class="rmb">Remember me</small>
+            </label>
+            <a href="#" class="forgetpass">Forget Password?</a>
+            <input type="submit" value="Sign in" class="btn1">
+        </form>
+            <a href="{{url_for('register') }}" class="dnthave">Don’t have an account? Sign up</a>
+    </div> 
+        <div class="footer"></div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/particlesjs/2.2.3/particles.min.js"></script>
+    <script type="text/javascript">
+        var pwd = document.getElementById('pwd');
+        var eye = document.getElementById('eye');
+
+        eye.addEventListener('click',togglePass);
+
+        function togglePass(){
+
+        eye.classList.toggle('active');
+
+        (pwd.type == 'password') ? pwd.type = 'text' : pwd.type = 'password';
+        }
+
+        // Form Validation
+
+
+        // ParticlesJS Config.
+        particlesJS("particles-js", {
+        "particles": {
+            "number": {
+            "value": 60,
+            "density": {
+                "enable": true,
+                "value_area": 800
+            }
+            },
+            "color": {
+            "value": "#ffffff"
+            },
+            "shape": {
+            "type": "circle",
+            "stroke": {
+                "width": 0,
+                "color": "#000000"
+            },
+            "polygon": {
+                "nb_sides": 5
+            },
+            "image": {
+                "src": "img/github.svg",
+                "width": 100,
+                "height": 100
+            }
+            },
+            "opacity": {
+            "value": 0.1,
+            "random": false,
+            "anim": {
+                "enable": false,
+                "speed": 1,
+                "opacity_min": 0.1,
+                "sync": false
+            }
+            },
+            "size": {
+            "value": 6,
+            "random": false,
+            "anim": {
+                "enable": false,
+                "speed": 40,
+                "size_min": 0.1,
+                "sync": false
+            }
+            },
+            "line_linked": {
+            "enable": true,
+            "distance": 150,
+            "color": "#ffffff",
+            "opacity": 0.1,
+            "width": 2
+            },
+            "move": {
+            "enable": true,
+            "speed": 1.5,
+            "direction": "top",
+            "random": false,
+            "straight": false,
+            "out_mode": "out",
+            "bounce": false,
+            "attract": {
+                "enable": false,
+                "rotateX": 600,
+                "rotateY": 1200
+            }
+            }
+        },
+        "interactivity": {
+            "detect_on": "canvas",
+            "events": {
+            "onhover": {
+                "enable": false,
+                "mode": "repulse"
+            },
+            "onclick": {
+                "enable": false,
+                "mode": "push"
+            },
+            "resize": true
+            },
+            "modes": {
+            "grab": {
+                "distance": 400,
+                "line_linked": {
+                "opacity": 1
+                }
+            },
+            "bubble": {
+                "distance": 400,
+                "size": 40,
+                "duration": 2,
+                "opacity": 8,
+                "speed": 3
+            },
+            "repulse": {
+                "distance": 200,
+                "duration": 0.4
+            },
+            "push": {
+                "particles_nb": 4
+            },
+            "remove": {
+                "particles_nb": 2
+            }
+            }
+        },
+        "retina_detect": true
+        });
+    </script>
+</html>

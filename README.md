@@ -1,7 +1,7 @@
 # Crypto Social Network
 ## Created using Flask
 
-![Screenshot](/screenshots/screenshot2.png)
+![Screenshot](/screenshots/Screenshot2.png)
 
 Usage:
 

@@ -1,6 +1,6 @@
-# Crypto Data
-## A Crypto data web-app + Price prediction bot
-### Using Python/Flask
+## A Crypto Social Network
+
+### Created using Flask
 
 ![Screenshot](/screenshots/screenshot1.png)
 

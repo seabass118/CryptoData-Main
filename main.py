@@ -34,7 +34,11 @@ def create_all():
 def before_request():
     g.user = current_user
 
-@app.route('/', methods=['POST', 'GET'])
+@app.route('/')
+def home():
+    return render_template('home.html')
+
+@app.route('/login', methods=['POST', 'GET'])
 def login():
     if current_user.is_authenticated:
         return redirect('/session')

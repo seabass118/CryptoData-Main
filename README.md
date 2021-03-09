@@ -1,4 +1,3 @@
-# Crypto Social Network
-## Created using Flask
+# A website to view Crypto data
+## Created using Angular and Flask
 
-![Screenshot](/screenshots/Screenshot2.png)
